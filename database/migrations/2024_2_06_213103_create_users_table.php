@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('image')->nullable();
             $table->string('domain')->nullable();
             $table->foreignId('role_id')
                 ->default(2)

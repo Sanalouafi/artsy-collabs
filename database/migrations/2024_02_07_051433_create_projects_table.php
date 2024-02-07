@@ -17,7 +17,6 @@ return new class extends Migration {
             $table->integer('status')->default(1);
             $table->date('start_date');
             $table->date('end_date');
-            $table->string('image');
             $table->integer('budget');
             $table->foreignId('partner_id')
                 ->constrained()

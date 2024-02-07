@@ -18,7 +18,6 @@ return new class extends Migration {
             $table->string('phone');
             $table->string('adress');
             $table->string('type');
-            $table->string('logo');
             $table->softDeletes();
             $table->timestamps();
         });
