@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProjectController;
@@ -21,12 +22,14 @@ use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 Route::resource('projects', ProjectController::class);
 Route::resource('project-users', ProjectUserController::class);
 Route::resource('partners', PartnerController::class);
 Route::resource('permissions', PermissionController::class);
-Route::resource('users', UserController::class);
+Route::resource('artists', UserController::class);
+Route::resource('admin', AdminController::class);
+Route::put('/admin/users/{id}/updateStatus', [AdminController::class, 'updateStatus'])->name('admin.users.updateStatus');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -38,4 +41,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

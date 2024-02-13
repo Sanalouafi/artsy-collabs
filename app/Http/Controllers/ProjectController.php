@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProjectStoreRequest;
+use App\Http\Requests\UpdateProjectRequest;
+use App\Models\partner;
 use App\Models\project;
 use Illuminate\Http\Request;
 
@@ -10,17 +13,27 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::all();
-        return view('projects.index', compact('projects'));
+        return view('admin.projects.index', compact('projects'));
     }
 
     public function create()
     {
-        return view('projects.create');
+        $partners = partner::all();
+        $status = project::STATUS_RADIO;
+        return view('admin.projects.create', compact('partners', 'status'));
     }
 
-    public function store(Request $request)
+    public function store(ProjectStoreRequest $request)
     {
-        project::create($request->all());
+        $validatedData = $request->validated();
+
+        $project = Project::create($validatedData);
+
+        if ($request->hasFile('image')) {
+            $project->addMedia($request->file('image'))->toMediaCollection('project');
+        }
+
+
         return redirect()->route('projects.index');
     }
 
@@ -31,12 +44,21 @@ class ProjectController extends Controller
 
     public function edit(Project $project)
     {
-        return view('projects.edit', compact('project'));
+        $partners = partner::all();
+        $status = project::STATUS_RADIO;
+        return view('admin.projects.edit', compact('project','partners','status'));
     }
 
-    public function update(Request $request, Project $project)
+    public function update(UpdateProjectRequest $request, Project $project)
     {
-        $project->update($request->all());
+        $validatedData = $request->validated();
+
+        $project->update($validatedData);
+
+        if ($request->hasFile('image')) {
+            $project->addMedia($request->file('image'))->toMediaCollection('project');
+        }
+
         return redirect()->route('projects.index');
     }
 

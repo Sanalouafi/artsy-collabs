@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-class project_user extends Model implements HasMedia
+class projectUser extends Model implements HasMedia
 {
     use HasFactory, SoftDeletes,InteractsWithMedia;
     protected $fillable = [

@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -25,13 +26,15 @@ class User extends Authenticatable implements HasMedia
         'email',
         'password',
         'domain',
+        'status',
+        'role_id',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
     public function project_user()
     {
-        return $this->hasMany(project_user::class);
+        return $this->hasMany(projectUser::class);
     }
 
     /**
@@ -53,4 +56,11 @@ class User extends Authenticatable implements HasMedia
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    protected $attributes = [
+        'role_id' => 2,
+    ];
+    public function role(): BelongsTo
+    {
+        return $this->belongsTo(Role::class);
+    }
 }
