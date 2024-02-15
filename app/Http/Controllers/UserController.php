@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
+use App\Models\projectUser;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -83,5 +85,14 @@ class UserController extends Controller
     {
         $artist->delete();
         return redirect()->route('artists.index')->with('success', 'Artist deleted successfully.');
+    }
+    public function artist_index()
+    {
+        $status = project::STATUS_RADIO;
+        $projects = Project::where('status',1)->get();
+        return view('artist.dashboard', compact('projects', 'status'));
+    }
+    public function artist_Projects()
+    {
     }
 }

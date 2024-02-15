@@ -16,9 +16,13 @@ class projectUser extends Model implements HasMedia
         "project_id",
         "task",
         "payment",
+        "status",
         "created_at",
         "updated_at",
         "deleted_at",
+    ];
+    protected $attributes = [
+        'status' => 0,
     ];
     public function user()
     {

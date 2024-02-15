@@ -20,24 +20,23 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', [ProjectController::class,'home'])->name('welcome');
+Route::get('/', [ProjectController::class, 'home'])->name('welcome');
 
-Route::resource('projects', ProjectController::class);
-Route::resource('project-users', ProjectUserController::class);
-Route::resource('partners', PartnerController::class);
-Route::resource('permissions', PermissionController::class);
-Route::resource('artists', UserController::class);
-Route::resource('admin', AdminController::class);
-Route::put('/admin/users/{id}/updateStatus', [AdminController::class, 'updateStatus'])->name('admin.users.updateStatus');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/artist', [UserController::class,'artist_index'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::resource('projects', ProjectController::class);
+    Route::resource('projectUsers', ProjectUserController::class);
+    Route::resource('partners', PartnerController::class);
+    Route::resource('permissions', PermissionController::class);
+    Route::resource('artists', UserController::class);
+    Route::resource('admin', AdminController::class);
+    Route::put('/admin/users/{id}/updateStatus', [AdminController::class, 'updateStatus'])->name('admin.users.updateStatus');
+
 });
 
 require __DIR__ . '/auth.php';

@@ -33,7 +33,12 @@ class AuthenticatedSessionController extends Controller
         if ($user->role->name === 'admin') {
             return redirect()->route('admin.index');
         }
-        return redirect()->route('welcome');    }
+        elseif ($user->role->name === 'artist'&& $user->status === 1) {
+
+        return redirect()->route('dashboard');
+      }
+      return redirect()->route('login');
+    }
 
     /**
      * Destroy an authenticated session.

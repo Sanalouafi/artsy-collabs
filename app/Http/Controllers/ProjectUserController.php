@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProjectUserStoreRequest;
 use App\Models\ProjectUser;
 use Illuminate\Http\Request;
 
@@ -15,13 +16,13 @@ class ProjectUserController extends Controller
 
     public function create()
     {
-        return view('project_users.create');
     }
 
-    public function store(Request $request)
+    public function store(ProjectUserStoreRequest $request)
     {
-        projectUser::create($request->all());
-        return redirect()->route('project_users.index');
+        $projectUser = projectUser::create($request->validated());
+
+        return redirect()->back()->with('success', 'Task added successfully!');
     }
 
     public function show(projectUser $project_user)

@@ -13,7 +13,8 @@ return new class extends Migration {
         Schema::create('project_users', function (Blueprint $table) {
             $table->id();
             $table->string('task');
-            $table->integer('payment');
+            $table->integer('payment')->nullable();
+            $table->boolean('status')->default(0);
             $table->foreignId('project_id')
                 ->constrained()
                 ->onUpdate('cascade')
