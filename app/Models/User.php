@@ -14,7 +14,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 class User extends Authenticatable implements HasMedia
 {
-    use HasApiTokens,SoftDeletes, HasFactory, Notifiable,InteractsWithMedia;
+    use HasApiTokens, SoftDeletes, HasFactory, Notifiable, InteractsWithMedia;
 
     /**
      * The attributes that are mass assignable.
@@ -63,4 +63,5 @@ class User extends Authenticatable implements HasMedia
     {
         return $this->belongsTo(Role::class);
     }
+
 }

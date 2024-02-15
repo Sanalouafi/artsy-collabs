@@ -10,10 +10,15 @@ use Illuminate\Support\Facades\Auth;
 class ProjectUserController extends Controller
 {
     public function index()
-    {
-        $project_users = ProjectUser::all();
-        return view('project_users.index', compact('project_users'));
-    }
+{
+    // Get the currently authenticated user
+    $user = Auth::user();
+
+    // Retrieve projects associated with the authenticated user
+    $projects = $user->project_user()->where('status', 1)->get();
+
+    return view("artist.projects", compact("projects"));
+}
 
     public function create()
     {
@@ -45,10 +50,10 @@ class ProjectUserController extends Controller
     }
 
 
-    public function destroy(projectUser $project_user)
+    public function destroy(projectUser $projectUser)
     {
-        $project_user->delete();
-        return redirect()->route('project_users.index');
+        $projectUser->delete();
+        return redirect()->route('projects.index');
     }
 
 }

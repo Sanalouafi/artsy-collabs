@@ -24,7 +24,7 @@ Route::get('/', [ProjectController::class, 'home'])->name('welcome');
 
 
 Route::get('/artist', [UserController::class, 'artist_index'])->name('dashboard');
-
+Route::post('projects/{id}/restore', [ProjectController::class,'restore'])->name('projects.restore');
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

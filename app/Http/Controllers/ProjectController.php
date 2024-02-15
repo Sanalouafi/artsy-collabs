@@ -6,6 +6,7 @@ use App\Http\Requests\ProjectStoreRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\partner;
 use App\Models\project;
+use App\Models\projectUser;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -13,7 +14,10 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::all();
-        return view('admin.projects.index', compact('projects'));
+        $projectsTrash = Project::onlyTrashed()->get();
+        $projectUsers = projectUser::all();
+
+        return view('admin.projects.index', compact('projects', 'projectUsers', 'projectsTrash'));
     }
 
     public function create()
@@ -46,7 +50,7 @@ class ProjectController extends Controller
     {
         $partners = partner::all();
         $status = project::STATUS_RADIO;
-        return view('admin.projects.edit', compact('project','partners','status'));
+        return view('admin.projects.edit', compact('project', 'partners', 'status'));
     }
 
     public function update(UpdateProjectRequest $request, Project $project)
@@ -68,11 +72,22 @@ class ProjectController extends Controller
         $project->delete();
         return redirect()->route('projects.index');
     }
-    public function home(){
+    public function home()
+    {
         $projects = Project::where('status', 3)
-        ->orderBy('created_at', 'desc')
-        ->take(3)
-        ->get();
-        return view('welcome',compact('projects'));
+            ->orderBy('created_at', 'desc')
+            ->take(3)
+            ->get();
+        return view('welcome', compact('projects'));
+    }
+    public function restore($id)
+{
+    $project = Project::withTrashed()->findOrFail($id);
+    $project->restore();
+    return redirect()->route('projects.index');
 }
+
+
+
+
 }
