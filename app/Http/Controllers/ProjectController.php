@@ -56,7 +56,8 @@ class ProjectController extends Controller
         $project->update($validatedData);
 
         if ($request->hasFile('image')) {
-            $project->addMedia($request->file('image'))->toMediaCollection('project', 'media_projects');
+            $project->clearMediaCollection('project');
+            $project->addMediaFromRequest('image')->toMediaCollection('project', 'media_projects');
         }
 
         return redirect()->route('projects.index');

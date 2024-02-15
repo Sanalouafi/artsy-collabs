@@ -22,7 +22,12 @@ class AdminController extends Controller
                 $query->where('name', 'artist');
             })->count();
         $usersBlock = User::where('status', 0)->get();
-        return view('admin.dashboard', compact('projectCount', 'partnerCount', 'userCountBlock', 'users', 'usersBlock'));
+        $projectsBlock = projectUser::where('status',0)
+           -> whereHas('user', function ($query) {
+                $query->where('role_id', 2);
+            })
+            ->get();
+        return view('admin.dashboard', compact('projectCount', 'partnerCount', 'userCountBlock', 'users', 'usersBlock', 'projectsBlock'));
     }
 
     /**
@@ -37,7 +42,7 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        
+
     }
 
     /**

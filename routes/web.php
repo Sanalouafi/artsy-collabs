@@ -23,7 +23,7 @@ use App\Http\Controllers\UserController;
 Route::get('/', [ProjectController::class, 'home'])->name('welcome');
 
 
-Route::get('/artist', [UserController::class,'artist_index'])->name('dashboard');
+Route::get('/artist', [UserController::class, 'artist_index'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

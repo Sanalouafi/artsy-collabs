@@ -19,6 +19,7 @@
         integrity="sha384-jaDVv47vtx+OKWD/9A/FeaRvGpffOW9o6IS/41PbJKAA9kiK1B7iZzE2UZ2u+pF3" crossorigin="anonymous">
     </script>
 
+
 </head>
 
 <body>
@@ -366,6 +367,8 @@
             </main>
         </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+
 </body>
 
 </html>
