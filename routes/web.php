@@ -20,9 +20,8 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+Route::get('/', [ProjectController::class,'home'])->name('welcome');
+
 Route::resource('projects', ProjectController::class);
 Route::resource('project-users', ProjectUserController::class);
 Route::resource('partners', PartnerController::class);

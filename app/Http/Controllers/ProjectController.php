@@ -56,7 +56,7 @@ class ProjectController extends Controller
         $project->update($validatedData);
 
         if ($request->hasFile('image')) {
-            $project->addMedia($request->file('image'))->toMediaCollection('project');
+            $project->addMedia($request->file('image'))->toMediaCollection('project', 'media_projects');
         }
 
         return redirect()->route('projects.index');
@@ -67,4 +67,11 @@ class ProjectController extends Controller
         $project->delete();
         return redirect()->route('projects.index');
     }
+    public function home(){
+        $projects = Project::where('status', 3)
+        ->orderBy('created_at', 'desc')
+        ->take(3)
+        ->get();
+        return view('welcome',compact('projects'));
+}
 }

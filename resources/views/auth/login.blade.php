@@ -1,4 +1,5 @@
-<x-guest-layout>
+<x-home>
+        <x-guest-layout>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
@@ -49,3 +50,4 @@
               </p>
     </form>
 </x-guest-layout>
+    </x-home>

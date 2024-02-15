@@ -34,6 +34,13 @@ return [
             'root'   => public_path('media'),
             'url'    => env('APP_URL').'/media',
         ],
+
+        'media_projects' => [
+            'driver' => 'local',
+            'root'   => public_path('media/projects'),
+            'url'    => env('APP_URL').'/media/projects',
+        ],
+
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
